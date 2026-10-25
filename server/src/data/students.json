@@ -1,0 +1,47 @@
+[
+  {
+    "id": "3ef9a0ed-9901-4afb-821a-807443ea0f55",
+    "studentId": "BS-2025-001",
+    "fullName": "Abebe Bekele",
+    "grade": "Grade 10",
+    "section": "A",
+    "gender": "Male",
+    "dateOfBirth": "2009-06-12",
+    "address": "Addis Ababa",
+    "guardianName": "Bekele Abebe",
+    "guardianPhone": "+251911000001",
+    "enrollmentStatus": "active",
+    "createdAt": "2026-10-25T11:42:20.626Z",
+    "updatedAt": "2026-10-25T11:42:20.626Z"
+  },
+  {
+    "id": "75660510-033b-4a78-a29b-34601dba43d4",
+    "studentId": "BS-2025-002",
+    "fullName": "Selam Tadesse",
+    "grade": "Grade 11",
+    "section": "B",
+    "gender": "Female",
+    "dateOfBirth": "2008-02-18",
+    "address": "Bahir Dar",
+    "guardianName": "Tadesse Hailu",
+    "guardianPhone": "+251911000002",
+    "enrollmentStatus": "active",
+    "createdAt": "2026-10-25T11:42:20.627Z",
+    "updatedAt": "2026-10-25T11:42:20.627Z"
+  },
+  {
+    "id": "839ee9b9-e444-42e2-8741-7b9f508d5d85",
+    "studentId": "23",
+    "fullName": "mulu",
+    "grade": "Grade 12",
+    "section": "A",
+    "gender": "Female",
+    "dateOfBirth": null,
+    "address": "bahirdar",
+    "guardianName": "getch",
+    "guardianPhone": "0987654552",
+    "enrollmentStatus": "active",
+    "createdAt": "2026-10-25T12:19:53.465Z",
+    "updatedAt": "2026-10-25T12:19:53.465Z"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "75edaa34-1620-4f85-8c81-3a66013104b2",
+    "studentId": "BS-2025-001",
+    "studentName": "Abebe Bekele",
+    "category": "Tuition",
+    "amount": 1200,
+    "status": "Paid",
+    "date": "2026-10-25"
+  },
+  {
+    "id": "5d8c25bc-78cb-46c2-9463-3df04a26e540",
+    "studentId": "56",
+    "studentName": "hirut",
+    "category": "Examination",
+    "amount": 100,
+    "status": "Pending",
+    "date": "2026-10-25"
+  }
+]

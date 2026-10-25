@@ -1,0 +1,18 @@
+[
+  {
+    "id": "07a1b439-4d9c-4273-a5db-7ba5dc9ec33d",
+    "title": "metting day ",
+    "content": "arrive on time at 9:00 o.clock",
+    "audience": "teachers",
+    "createdBy": "admin@bemilew.edu",
+    "publishedAt": "2026-10-25T12:31:07.907Z"
+  },
+  {
+    "id": "b5520470-9dde-4c1d-942b-0c327c5e0584",
+    "title": "Academic Year Kickoff",
+    "content": "Welcome back to Bemilew Secondary School. Please review the timetable and class assignments.",
+    "audience": "all",
+    "createdBy": "admin@bemilew.edu",
+    "publishedAt": "2026-10-25T11:42:20.626Z"
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "c5d47adb-25d8-4b74-b04a-864a08e000c9",
+    "studentId": "BS-2025-001",
+    "studentName": "Abebe Bekele",
+    "grade": "Grade 10",
+    "section": "A",
+    "term": "Semester I",
+    "academicYear": "2025/2026",
+    "gpa": 3.8,
+    "remark": "Excellent performance and strong academic progress.",
+    "subjects": [
+      {
+        "name": "Mathematics",
+        "score": 88,
+        "maxScore": 100,
+        "grade": "A"
+      },
+      {
+        "name": "Science",
+        "score": 82,
+        "maxScore": 100,
+        "grade": "A"
+      }
+    ],
+    "generatedAt": "2026-10-25T13:01:51.732Z"
+  }
+]

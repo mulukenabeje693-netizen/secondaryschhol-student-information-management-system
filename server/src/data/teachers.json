@@ -1,0 +1,29 @@
+[
+  {
+    "id": "94cf81eb-0af4-4834-92ab-9670afc41e16",
+    "teacherId": "T-101",
+    "fullName": "Mekdes Alemu",
+    "department": "Mathematics",
+    "email": "mekdes@bemilew.edu",
+    "status": "active",
+    "createdAt": "2026-10-25T12:41:31.328Z"
+  },
+  {
+    "id": "d71ee35f-d54a-48c3-b782-7e33a47a196b",
+    "teacherId": "T-102",
+    "fullName": "Daniel Bekele",
+    "department": "Science",
+    "email": "daniel@bemilew.edu",
+    "status": "active",
+    "createdAt": "2026-10-25T12:41:31.328Z"
+  },
+  {
+    "id": "d2a118d0-3bff-42ed-a04b-de72dfa0f166",
+    "teacherId": "gete",
+    "fullName": "getebalew",
+    "department": "ICT",
+    "email": "get@gmail.com",
+    "status": "active",
+    "createdAt": "2026-10-25T12:47:11.762Z"
+  }
+]

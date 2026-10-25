@@ -1,0 +1,16 @@
+[
+  {
+    "id": "e72aeaa9-2fe1-43ee-8532-438b0750cd82",
+    "name": "Grade 10",
+    "section": "A",
+    "capacity": 40,
+    "academicYear": "2025/2026"
+  },
+  {
+    "id": "9466b690-18ca-48cb-91b3-5f95fe10e474",
+    "name": "Grade 11",
+    "section": "B",
+    "capacity": 35,
+    "academicYear": "2025/2026"
+  }
+]

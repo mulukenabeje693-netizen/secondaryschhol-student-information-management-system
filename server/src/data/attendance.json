@@ -1,0 +1,18 @@
+[
+  {
+    "id": "9a1f86dc-2547-4aa5-864b-f505d5d5a7b7",
+    "studentId": "BS-2025-001",
+    "className": "Grade 10",
+    "date": "2026-10-25",
+    "status": "Present",
+    "recordedBy": "admin@bemilew.edu"
+  },
+  {
+    "id": "dc60d395-ecd2-4452-9f23-3dd4ac6c603b",
+    "studentId": "23",
+    "className": "Grade 12",
+    "date": "2026-10-25",
+    "status": "Present",
+    "recordedBy": "admin@bemilew.edu"
+  }
+]

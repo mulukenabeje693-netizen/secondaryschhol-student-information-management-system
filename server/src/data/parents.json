@@ -1,0 +1,15 @@
+[
+  {
+    "id": "102e328d-7b43-4bea-83a5-67ce503cfdb9",
+    "name": "Bekele Abebe",
+    "email": "guardian.bekele@bemilew.edu",
+    "passwordHash": "$2a$10$VN45ioaLYUM7ZR0KE6elXuSnL2GKNRp2W4OW93oDQGeGP8vn.cd2y",
+    "role": "parent",
+    "status": "active",
+    "linkedStudentIds": [
+      "BS-2025-001"
+    ],
+    "createdAt": "2026-10-25T12:53:02.425Z",
+    "updatedAt": "2026-10-25T12:53:02.425Z"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "034cdb7e-4596-4403-bf3c-e34bd557f403",
+    "day": "Monday",
+    "time": "08:00-09:00",
+    "className": "Grade 10",
+    "subject": "Mathematics",
+    "teacher": "Mekdes Alemu",
+    "room": "Room 101",
+    "createdAt": "2026-10-25T12:44:17.472Z"
+  },
+  {
+    "id": "1179d2f6-600a-468b-92be-61ead86dcad0",
+    "day": "Tuesday",
+    "time": "10:00-11:00",
+    "className": "Grade 11",
+    "subject": "Science",
+    "teacher": "Daniel Bekele",
+    "room": "Lab 2",
+    "createdAt": "2026-10-25T12:44:17.472Z"
+  }
+]

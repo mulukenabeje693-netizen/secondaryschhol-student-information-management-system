@@ -1,0 +1,14 @@
+[
+  {
+    "id": "f32af2fb-5207-4009-a592-98d104999650",
+    "name": "Mathematics",
+    "grade": "Grade 10",
+    "teacher": "Mekdes Alemu"
+  },
+  {
+    "id": "f7b07bd7-639f-4696-91cd-f134213a4ecd",
+    "name": "Biology",
+    "grade": "Grade 11",
+    "teacher": "Daniel Bekele"
+  }
+]

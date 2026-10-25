@@ -1,0 +1,13 @@
+[
+  {
+    "id": "ea24241d-2fc9-4fa1-878f-b80262522c91",
+    "studentId": "BS-2025-001",
+    "studentName": "Abebe Bekele",
+    "subject": "Mathematics",
+    "exam": "Midterm",
+    "score": 88,
+    "maxScore": 100,
+    "grade": "A",
+    "recordedAt": "2026-10-25T12:44:17.473Z"
+  }
+]
