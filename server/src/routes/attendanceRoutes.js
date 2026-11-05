@@ -1,7 +1,7 @@
 import express from 'express';
 import crypto from 'crypto';
 import { authenticate } from '../middleware/auth.js';
-import { getAttendance, saveAttendance, getStudents } from '../store.js';
+import { getAttendance, saveAttendance, getStudents, logAuditEvent } from '../store.js';
 
 const router = express.Router();
 
@@ -45,6 +45,7 @@ router.post('/', authenticate, (req, res) => {
 
   attendance.push(record);
   saveAttendance(attendance);
+  logAuditEvent('attendance.recorded', req.user?.email || 'system', { studentId: record.studentId, className: record.className, status: record.status, date: record.date });
   res.status(201).json(record);
 });
 

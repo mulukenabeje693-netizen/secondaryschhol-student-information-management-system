@@ -1,0 +1,449 @@
+[
+  {
+    "id": "bd9d3481-708e-42f8-844b-fe6d2272584b",
+    "action": "auth.login",
+    "actor": "directer27@gmail.com",
+    "details": {
+      "role": "director",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:22:06.922Z"
+  },
+  {
+    "id": "cc3614ef-2e42-4345-88d9-b8a6ae97b058",
+    "action": "auth.login",
+    "actor": "teacher23@gmail.com",
+    "details": {
+      "role": "teacher",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:21:55.448Z"
+  },
+  {
+    "id": "5caa840b-4817-4566-90c4-22314b331305",
+    "action": "auth.login",
+    "actor": "admin21@gmail.com",
+    "details": {
+      "role": "admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:16:34.537Z"
+  },
+  {
+    "id": "15f4fabc-bba7-4fe8-b9eb-40b6e87d25d4",
+    "action": "teacher.created",
+    "actor": "sysadmin25@gmail.com",
+    "details": {
+      "teacherId": "23456",
+      "fullName": "mihiret"
+    },
+    "timestamp": "2026-11-05T08:14:13.482Z"
+  },
+  {
+    "id": "34a62908-92df-44b4-86da-c4ecd281729a",
+    "action": "school.settings.updated",
+    "actor": "sysadmin25@gmail.com",
+    "details": {
+      "academicYear": "2025/2026",
+      "semester": "Semester I"
+    },
+    "timestamp": "2026-11-05T08:12:56.353Z"
+  },
+  {
+    "id": "0150d4f9-b723-4fa1-b4aa-26c3e2d7466a",
+    "action": "school.settings.updated",
+    "actor": "sysadmin25@gmail.com",
+    "details": {
+      "academicYear": "2025/2026",
+      "semester": "Semester I"
+    },
+    "timestamp": "2026-11-05T08:12:52.997Z"
+  },
+  {
+    "id": "7af211f8-4a04-4ed7-b8b8-0536e72707a6",
+    "action": "auth.login",
+    "actor": "sysadmin25@gmail.com",
+    "details": {
+      "role": "system_admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:12:07.316Z"
+  },
+  {
+    "id": "1b087269-c69d-46e5-997f-a9751ae8f4d1",
+    "action": "auth.login",
+    "actor": "admin@bemilew.edu",
+    "details": {
+      "role": "super_admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:10:42.002Z"
+  },
+  {
+    "id": "63acc148-812d-4ed1-b268-ce8f41a14b0e",
+    "action": "auth.login",
+    "actor": "directer27@gmail.com",
+    "details": {
+      "role": "director",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:10:41.517Z"
+  },
+  {
+    "id": "2dd60448-da33-4214-ac50-1d06528f3cc8",
+    "action": "auth.login",
+    "actor": "stud26@gmail.com",
+    "details": {
+      "role": "student",
+      "studentId": "BS-2025-001"
+    },
+    "timestamp": "2026-11-05T08:10:41.070Z"
+  },
+  {
+    "id": "25af6478-8efb-4f4f-9f7f-63f6375495d5",
+    "action": "auth.login",
+    "actor": "sysadmin25@gmail.com",
+    "details": {
+      "role": "system_admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:10:40.611Z"
+  },
+  {
+    "id": "83f76fd3-29f4-46a1-8a9c-c52119119f31",
+    "action": "auth.login",
+    "actor": "record24@gmail.com",
+    "details": {
+      "role": "record",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:10:40.167Z"
+  },
+  {
+    "id": "ee929788-5631-4fe9-a012-900d16e9574d",
+    "action": "auth.login",
+    "actor": "teacher23@gmail.com",
+    "details": {
+      "role": "teacher",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:10:39.722Z"
+  },
+  {
+    "id": "9ba8a870-4f97-488d-8df3-9e9a69aa172a",
+    "action": "auth.login",
+    "actor": "parent22@gmail.com",
+    "details": {
+      "role": "parent",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:10:39.275Z"
+  },
+  {
+    "id": "fc0ba594-b187-424b-859b-30e3e3c0d531",
+    "action": "auth.login",
+    "actor": "admin21@gmail.com",
+    "details": {
+      "role": "admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:10:38.827Z"
+  },
+  {
+    "id": "b7d73a75-8ce8-41ad-adce-667a954ceca5",
+    "action": "auth.login",
+    "actor": "stud26@gmail.com",
+    "details": {
+      "role": "student",
+      "studentId": "BS-2025-001"
+    },
+    "timestamp": "2026-11-05T08:09:26.482Z"
+  },
+  {
+    "id": "edcdb1b4-4835-4a66-8fb6-c78064cc3d3b",
+    "action": "auth.login",
+    "actor": "parent22@gmail.com",
+    "details": {
+      "role": "parent",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:09:26.332Z"
+  },
+  {
+    "id": "a222e62c-5d25-423f-a6e5-13c9d2a90a75",
+    "action": "auth.login",
+    "actor": "directer27@gmail.com",
+    "details": {
+      "role": "director",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:08:06.377Z"
+  },
+  {
+    "id": "a4b77f77-549f-49c8-bea0-793705abbda6",
+    "action": "auth.login",
+    "actor": "stud26@gmail.com",
+    "details": {
+      "role": "student",
+      "studentId": "BS-2025-001"
+    },
+    "timestamp": "2026-11-05T08:08:05.922Z"
+  },
+  {
+    "id": "044ed587-f37a-4d70-8ac6-7a17c967324e",
+    "action": "auth.login",
+    "actor": "sysadmin25@gmail.com",
+    "details": {
+      "role": "system_admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:08:05.468Z"
+  },
+  {
+    "id": "d762a99f-d00b-4ca1-b109-c7ac18e048c0",
+    "action": "auth.login",
+    "actor": "record24@gmail.com",
+    "details": {
+      "role": "record",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:08:05.010Z"
+  },
+  {
+    "id": "2f8b1728-c32a-4297-96d4-8bc38e67172a",
+    "action": "auth.login",
+    "actor": "teacher23@gmail.com",
+    "details": {
+      "role": "teacher",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:08:04.556Z"
+  },
+  {
+    "id": "3cea7c86-3814-42c0-a80c-a5f140dabcca",
+    "action": "auth.login",
+    "actor": "parent22@gmail.com",
+    "details": {
+      "role": "parent",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:08:04.102Z"
+  },
+  {
+    "id": "6f8dadfe-ad1c-4ef4-8643-84b8dd737981",
+    "action": "auth.login",
+    "actor": "admin21@gmail.com",
+    "details": {
+      "role": "admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:08:03.624Z"
+  },
+  {
+    "id": "8ed5aaec-fa5b-4ebd-8306-c8a2ab80600d",
+    "action": "auth.login",
+    "actor": "parent22@gmail.com",
+    "details": {
+      "role": "parent",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:05:50.567Z"
+  },
+  {
+    "id": "bdba20b7-ad1e-4e1d-b87b-435597e0e00d",
+    "action": "auth.login",
+    "actor": "admin21@gmail.com",
+    "details": {
+      "role": "admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T08:00:22.682Z"
+  },
+  {
+    "id": "f0669e45-07de-4812-a776-646635e42245",
+    "action": "auth.login",
+    "actor": "directer27@gmail.com",
+    "details": {
+      "role": "director",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:58:22.635Z"
+  },
+  {
+    "id": "b5bb8875-0508-4168-9996-5b9395bc3263",
+    "action": "auth.login",
+    "actor": "stud26@gmail.com",
+    "details": {
+      "role": "student",
+      "studentId": "BS-2025-001"
+    },
+    "timestamp": "2026-11-05T07:58:21.853Z"
+  },
+  {
+    "id": "578ce144-a15d-4b45-bf6f-9e77a94f7296",
+    "action": "auth.login",
+    "actor": "sysadmin25@gmail.com",
+    "details": {
+      "role": "system_admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:58:20.901Z"
+  },
+  {
+    "id": "083371a9-426c-4611-abc5-22d5bee3aafb",
+    "action": "auth.login",
+    "actor": "record24@gmail.com",
+    "details": {
+      "role": "record",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:58:20.197Z"
+  },
+  {
+    "id": "791c24eb-b8a5-48f0-b8ee-a79a857b4f7f",
+    "action": "auth.login",
+    "actor": "teacher23@gmail.com",
+    "details": {
+      "role": "teacher",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:58:19.414Z"
+  },
+  {
+    "id": "3f7a9a58-8486-44b3-b2db-e8cc52f6f6e6",
+    "action": "auth.login",
+    "actor": "parent22@gmail.com",
+    "details": {
+      "role": "parent",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:58:18.762Z"
+  },
+  {
+    "id": "ebeceb1e-5e97-45c7-98ee-970adbeeb81f",
+    "action": "auth.login",
+    "actor": "admin21@gmail.com",
+    "details": {
+      "role": "admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:58:18.003Z"
+  },
+  {
+    "id": "de99dd01-17e4-4028-9659-b549b21672e7",
+    "action": "auth.login",
+    "actor": "directer27@gmail.com",
+    "details": {
+      "role": "director",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:57:51.419Z"
+  },
+  {
+    "id": "8dc8eaf9-2dbf-4f0c-b079-5f1ff9694937",
+    "action": "auth.login",
+    "actor": "stud26@gmail.com",
+    "details": {
+      "role": "student",
+      "studentId": "BS-2025-001"
+    },
+    "timestamp": "2026-11-05T07:57:51.155Z"
+  },
+  {
+    "id": "3073c9ca-6aab-46e3-b114-39669994388a",
+    "action": "auth.login",
+    "actor": "sysadmin25@gmail.com",
+    "details": {
+      "role": "system_admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:57:51.005Z"
+  },
+  {
+    "id": "654a3748-fa30-450b-92ec-c633dbd4c367",
+    "action": "auth.login",
+    "actor": "record24@gmail.com",
+    "details": {
+      "role": "record",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:57:50.855Z"
+  },
+  {
+    "id": "84be8d74-0054-4a62-86a9-18c4295d76b9",
+    "action": "auth.login",
+    "actor": "teacher23@gmail.com",
+    "details": {
+      "role": "teacher",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:57:50.707Z"
+  },
+  {
+    "id": "bc4849f8-3718-4d78-a86e-daf8868e3dd0",
+    "action": "auth.login",
+    "actor": "parent22@gmail.com",
+    "details": {
+      "role": "parent",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:57:50.556Z"
+  },
+  {
+    "id": "34e5c513-7b1f-4c00-8ae9-9acc8c9eb0ea",
+    "action": "auth.login",
+    "actor": "admin21@gmail.com",
+    "details": {
+      "role": "admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:57:50.399Z"
+  },
+  {
+    "id": "66963822-4168-4da1-a0aa-02e7f5c835cc",
+    "action": "auth.login",
+    "actor": "admin@bemilew.edu",
+    "details": {
+      "role": "super_admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T07:29:23.012Z"
+  },
+  {
+    "id": "f4a731fc-f895-4d05-9d36-27bc33d34d7c",
+    "action": "auth.login",
+    "actor": "student.abebe@bemilew.edu",
+    "details": {
+      "role": "student",
+      "studentId": "BS-2025-001"
+    },
+    "timestamp": "2026-10-25T13:27:44.336Z"
+  },
+  {
+    "id": "f9af38b1-5fb6-455b-bceb-51c8d7490617",
+    "action": "auth.login",
+    "actor": "admin@bemilew.edu",
+    "details": {
+      "role": "super_admin",
+      "studentId": null
+    },
+    "timestamp": "2026-10-25T13:27:38.739Z"
+  },
+  {
+    "id": "a3bf02ec-59f9-4dd5-8d15-bb7dc010522e",
+    "action": "auth.login",
+    "actor": "student.abebe@bemilew.edu",
+    "details": {
+      "role": "student",
+      "studentId": "BS-2025-001"
+    },
+    "timestamp": "2026-10-25T13:27:38.378Z"
+  },
+  {
+    "id": "6f7208a6-1c9c-4b33-89a0-cd2793cda6c6",
+    "action": "system.seeded",
+    "actor": "system",
+    "details": "Initial school data created.",
+    "timestamp": "2026-10-25T13:27:24.817Z"
+  }
+]

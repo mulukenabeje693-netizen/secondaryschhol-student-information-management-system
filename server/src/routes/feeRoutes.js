@@ -1,7 +1,7 @@
 import express from 'express';
 import crypto from 'crypto';
 import { authenticate } from '../middleware/auth.js';
-import { getFees, saveFees } from '../store.js';
+import { getFees, saveFees, logAuditEvent } from '../store.js';
 
 const router = express.Router();
 
@@ -29,6 +29,7 @@ router.post('/', authenticate, (req, res) => {
 
   fees.push(record);
   saveFees(fees);
+  logAuditEvent('fee.recorded', req.user?.email || 'system', { studentId: record.studentId, category: record.category, amount: record.amount, status: record.status });
   res.status(201).json(record);
 });
 

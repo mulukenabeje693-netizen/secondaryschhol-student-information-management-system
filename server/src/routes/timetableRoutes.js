@@ -1,6 +1,6 @@
 import express from 'express';
 import crypto from 'crypto';
-import { authenticate } from '../middleware/auth.js';
+import { authenticate, authorize } from '../middleware/auth.js';
 import { getTimetable, saveTimetable } from '../store.js';
 
 const router = express.Router();
@@ -9,7 +9,7 @@ router.get('/', authenticate, (req, res) => {
   res.json(getTimetable());
 });
 
-router.post('/', authenticate, (req, res) => {
+router.post('/', authenticate, authorize('super_admin', 'registrar', 'teacher'), (req, res) => {
   const timetable = getTimetable();
   const { day, time, className, subject, teacher, room } = req.body;
 

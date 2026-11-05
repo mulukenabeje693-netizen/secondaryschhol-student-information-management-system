@@ -21,5 +21,90 @@
     ],
     "createdAt": "2026-10-25T12:53:02.425Z",
     "updatedAt": "2026-10-25T12:53:02.425Z"
+  },
+  {
+    "id": "90652351-77bd-4ae9-89a5-a03b5ad8bb55",
+    "studentId": "BS-2025-001",
+    "name": "Abebe Bekele",
+    "email": "student.abebe@bemilew.edu",
+    "passwordHash": "$2a$10$0bKofRBKjYYEjIwJ4Zy4MONGbhjefJETyu4XLzssjhdqRd09oIYBi",
+    "role": "student",
+    "status": "active",
+    "createdAt": "2026-10-25T13:27:24.816Z",
+    "updatedAt": "2026-10-25T13:27:24.816Z"
+  },
+  {
+    "id": "038965bc-0832-43bc-88bb-f7633978e122",
+    "name": "School Administrator",
+    "email": "admin21@gmail.com",
+    "passwordHash": "$2a$10$5hIoVnjWsuQmYOlC2THlr.RISSQR3cAqY0Kt7EwujTdrhTTJA1RAa",
+    "role": "admin",
+    "status": "active",
+    "createdAt": "2026-11-05T07:33:02.995Z",
+    "updatedAt": "2026-11-05T07:46:59.470Z"
+  },
+  {
+    "id": "ba6b5a18-c34a-4065-b93e-c7c6c0de1434",
+    "name": "Parent",
+    "email": "parent22@gmail.com",
+    "passwordHash": "$2a$10$jVEAkuyN8fajyZi0iZwZeOlhBaG4z/4fqvCrUq9/wLEVOGe.so6Ju",
+    "role": "parent",
+    "status": "active",
+    "createdAt": "2026-11-05T07:33:03.044Z",
+    "updatedAt": "2026-11-05T07:46:59.519Z",
+    "linkedStudentIds": [
+      "BS-2025-001"
+    ]
+  },
+  {
+    "id": "18eea3cb-eba1-41eb-a3c9-48037d72b5e0",
+    "name": "Teacher",
+    "email": "teacher23@gmail.com",
+    "passwordHash": "$2a$10$Od2CEoZeXTRPndTH4e4zbeJzsCpHOraZwQSBqy0U28Puj2sdSaNIO",
+    "role": "teacher",
+    "status": "active",
+    "createdAt": "2026-11-05T07:33:03.092Z",
+    "updatedAt": "2026-11-05T07:46:59.567Z"
+  },
+  {
+    "id": "1d9d8d14-8cb7-4168-a27a-e5efc4d6dabf",
+    "name": "Record Officer",
+    "email": "record24@gmail.com",
+    "passwordHash": "$2a$10$gwOe/SKJkg9EDTXN52UL0.7HlXK4YlvszBEilImX5l6HHpjEd0OSW",
+    "role": "record",
+    "status": "active",
+    "createdAt": "2026-11-05T07:33:03.141Z",
+    "updatedAt": "2026-11-05T07:46:59.616Z"
+  },
+  {
+    "id": "3555deaa-27fa-49f5-a440-4696262538fe",
+    "name": "System Administrator",
+    "email": "sysadmin25@gmail.com",
+    "passwordHash": "$2a$10$qNoT4ntlmumLqFQycK2c/eevCfOS92eYTUpT2UeCY8J5u4XsEE6d6",
+    "role": "system_admin",
+    "status": "active",
+    "createdAt": "2026-11-05T07:33:03.190Z",
+    "updatedAt": "2026-11-05T07:46:59.665Z"
+  },
+  {
+    "id": "33cef653-ea9f-4f9d-a830-304fdc59635e",
+    "name": "Student",
+    "email": "stud26@gmail.com",
+    "passwordHash": "$2a$10$.UG7VoH3XO/qaak.OVSPSuHv1yHS7DAkdkJb.GGXugtNjDQph..i2",
+    "role": "student",
+    "status": "active",
+    "createdAt": "2026-11-05T07:33:03.239Z",
+    "updatedAt": "2026-11-05T07:46:59.713Z",
+    "studentId": "BS-2025-001"
+  },
+  {
+    "id": "9926415b-5de8-49a5-a8c3-d90f816c8927",
+    "name": "School Director",
+    "email": "directer27@gmail.com",
+    "passwordHash": "$2a$10$6SnveyZyCre.lCa0s1D.yel4ZfKWOmnrMvoXdM5/BMG2yZkdFZ3d2",
+    "role": "director",
+    "status": "active",
+    "createdAt": "2026-11-05T07:33:03.288Z",
+    "updatedAt": "2026-11-05T07:46:59.761Z"
   }
 ]

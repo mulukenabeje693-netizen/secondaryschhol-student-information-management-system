@@ -1,7 +1,7 @@
 import express from 'express';
 import crypto from 'crypto';
 import { authenticate, authorize } from '../middleware/auth.js';
-import { getReportCards, saveReportCards } from '../store.js';
+import { getReportCards, saveReportCards, logAuditEvent } from '../store.js';
 
 const router = express.Router();
 
@@ -21,10 +21,24 @@ const getRemark = (gpa) => {
 };
 
 router.get('/', authenticate, (req, res) => {
-  res.json(getReportCards());
+  const cards = getReportCards();
+  if (req.user.role === 'student') {
+    return res.json(cards.filter((card) => String(card.studentId) === String(req.user.studentId)));
+  }
+  if (req.user.role === 'parent') {
+    const linkedIds = new Set((req.user.linkedStudentIds || []).map(String));
+    return res.json(cards.filter((card) => linkedIds.has(String(card.studentId))));
+  }
+  res.json(cards);
 });
 
 router.get('/student/:studentId', authenticate, (req, res) => {
+  if (req.user.role === 'student' && String(req.user.studentId) !== String(req.params.studentId)) {
+    return res.status(403).json({ message: 'You may only view your own report cards.' });
+  }
+  if (req.user.role === 'parent' && !(req.user.linkedStudentIds || []).map(String).includes(String(req.params.studentId))) {
+    return res.status(403).json({ message: 'You may only view linked student report cards.' });
+  }
   const cards = getReportCards().filter((card) => String(card.studentId) === String(req.params.studentId));
   res.json(cards);
 });
@@ -60,6 +74,7 @@ router.post('/', authenticate, authorize('super_admin', 'registrar', 'teacher'),
   const current = getReportCards();
   current.push(record);
   saveReportCards(current);
+  logAuditEvent('report-card.generated', req.user?.email || 'system', { studentId: record.studentId, gpa: record.gpa, term: record.term });
   res.status(201).json(record);
 });
 

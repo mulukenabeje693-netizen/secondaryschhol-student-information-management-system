@@ -7,7 +7,8 @@ import {
   getClasses,
   saveClasses,
   getSubjects,
-  saveSubjects
+  saveSubjects,
+  logAuditEvent
 } from '../store.js';
 
 const router = express.Router();
@@ -20,6 +21,7 @@ router.put('/settings', authenticate, authorize('super_admin', 'registrar'), (re
   const current = getSchoolSettings();
   const updated = { ...current, ...req.body, updatedAt: new Date().toISOString() };
   saveSchoolSettings(updated);
+  logAuditEvent('school.settings.updated', req.user?.email || 'system', { academicYear: updated.academicYear, semester: updated.semester });
   res.json(updated);
 });
 
@@ -46,6 +48,7 @@ router.post('/classes', authenticate, authorize('super_admin', 'registrar'), (re
 
   classes.push(entry);
   saveClasses(classes);
+  logAuditEvent('school.class.created', req.user?.email || 'system', { name: entry.name, section: entry.section, capacity: entry.capacity });
   res.status(201).json(entry);
 });
 
@@ -71,6 +74,7 @@ router.post('/subjects', authenticate, authorize('super_admin', 'registrar', 'te
 
   subjects.push(entry);
   saveSubjects(subjects);
+  logAuditEvent('school.subject.created', req.user?.email || 'system', { name: entry.name, grade: entry.grade, teacher: entry.teacher });
   res.status(201).json(entry);
 });
 

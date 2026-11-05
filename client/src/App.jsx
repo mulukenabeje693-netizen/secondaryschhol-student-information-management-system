@@ -1,39 +1,91 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, Link, useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, GraduationCap, Megaphone, LogOut, UserCircle, School, Users, BookOpenCheck, WalletCards, CalendarRange, ClipboardCheck, Settings, BookCopy } from 'lucide-react';
+import { LayoutDashboard, GraduationCap, Megaphone, LogOut, UserCircle, School, Users, BookOpenCheck, WalletCards, CalendarRange, ClipboardCheck, Settings, BookCopy, Eye, EyeOff, LoaderCircle, Bell, ArrowRight, ShieldCheck } from 'lucide-react';
 import api from './api';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-const navItems = [
-  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/students', label: 'Students', icon: GraduationCap },
-  { to: '/parents', label: 'Parents', icon: Users },
-  { to: '/teachers', label: 'Teachers', icon: Users },
-  { to: '/attendance', label: 'Attendance', icon: BookOpenCheck },
-  { to: '/timetable', label: 'Timetable', icon: CalendarRange },
-  { to: '/results', label: 'Results', icon: ClipboardCheck },
-  { to: '/report-cards', label: 'Report Cards', icon: ClipboardCheck },
-  { to: '/academics', label: 'Academics', icon: BookCopy },
-  { to: '/fees', label: 'Fees', icon: WalletCards },
-  { to: '/announcements', label: 'Announcements', icon: Megaphone },
-  { to: '/settings', label: 'Settings', icon: Settings }
-];
+const roleHome = {
+  admin: '/admin/dashboard',
+  parent: '/parent/dashboard',
+  teacher: '/teacher/dashboard',
+  record: '/record/dashboard',
+  system_admin: '/system-admin/dashboard',
+  student: '/student/dashboard',
+  director: '/director/dashboard'
+};
+
+const roleAliases = { super_admin: 'admin', registrar: 'record' };
+const getRole = (role) => roleAliases[role] || role;
+
+const roleNavigation = {
+  admin: [
+    { to: '/students', label: 'Students', icon: GraduationCap },
+    { to: '/teachers', label: 'Teachers', icon: Users },
+    { to: '/parents', label: 'Parents', icon: UserCircle },
+    { to: '/academics', label: 'Classes & Subjects', icon: BookCopy },
+    { to: '/attendance', label: 'Attendance', icon: BookOpenCheck },
+    { to: '/fees', label: 'Payments', icon: WalletCards },
+    { to: '/report-cards', label: 'Reports', icon: ClipboardCheck },
+    { to: '/settings', label: 'Users & Settings', icon: Settings }
+  ],
+  parent: [
+    { to: '/parents', label: 'My Child', icon: UserCircle },
+    { to: '/timetable', label: 'Class Schedule', icon: CalendarRange },
+    { to: '/announcements', label: 'Announcements', icon: Megaphone }
+  ],
+  teacher: [
+    { to: '/students', label: 'My Students', icon: GraduationCap },
+    { to: '/teachers', label: 'My Classes', icon: Users },
+    { to: '/attendance', label: 'Attendance', icon: BookOpenCheck },
+    { to: '/results', label: 'Marks & Grades', icon: ClipboardCheck },
+    { to: '/report-cards', label: 'Academic Reports', icon: BookCopy },
+    { to: '/timetable', label: 'Class Schedule', icon: CalendarRange }
+  ],
+  record: [
+    { to: '/students', label: 'Student Records', icon: GraduationCap },
+    { to: '/parents', label: 'Parents', icon: Users },
+    { to: '/report-cards', label: 'Student Reports', icon: ClipboardCheck },
+    { to: '/attendance', label: 'Attendance', icon: BookOpenCheck }
+  ],
+  system_admin: [
+    { to: '/settings', label: 'System Configuration', icon: Settings },
+    { to: '/audit-logs', label: 'System Logs', icon: ClipboardCheck },
+    { to: '/teachers', label: 'User Directory', icon: Users }
+  ],
+  student: [
+    { to: '/student-portal', label: 'My Profile & Results', icon: UserCircle },
+    { to: '/timetable', label: 'My Timetable', icon: CalendarRange },
+    { to: '/report-cards', label: 'Academic Reports', icon: ClipboardCheck },
+    { to: '/announcements', label: 'Announcements', icon: Megaphone }
+  ],
+  director: [
+    { to: '/students', label: 'Students', icon: GraduationCap },
+    { to: '/teachers', label: 'Staff Performance', icon: Users },
+    { to: '/attendance', label: 'Attendance Statistics', icon: BookOpenCheck },
+    { to: '/fees', label: 'Financial Reports', icon: WalletCards },
+    { to: '/report-cards', label: 'School Reports', icon: ClipboardCheck },
+    { to: '/audit-logs', label: 'School-wide Activity', icon: ShieldCheck }
+  ]
+};
 
 const roleColor = {
-  super_admin: '#1d4ed8',
-  registrar: '#16a34a',
-  teacher: '#7c3aed',
-  student: '#f59e0b',
-  parent: '#ef4444'
+  admin: '#1d4ed8', system_admin: '#334155', record: '#15803d',
+  teacher: '#7c3aed', student: '#d97706', parent: '#dc2626', director: '#0f766e'
+};
+
+const roleTitles = {
+  admin: 'Admin', parent: 'Parent', teacher: 'Teacher', record: 'Record Officer',
+  system_admin: 'System Administrator', student: 'Student', director: 'School Director'
 };
 
 function App() {
-  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('bemilew-user') || 'null'));
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('bemilew-token');
+    const token = localStorage.getItem('bemilew-token') || sessionStorage.getItem('bemilew-token');
     if (!token) {
+      setUser(null);
       setLoading(false);
       return;
     }
@@ -41,11 +93,14 @@ function App() {
     api.get('/auth/me')
       .then(({ data }) => {
         setUser(data.user);
-        localStorage.setItem('bemilew-user', JSON.stringify(data.user));
+        const storage = localStorage.getItem('bemilew-token') ? localStorage : sessionStorage;
+        storage.setItem('bemilew-user', JSON.stringify(data.user));
       })
       .catch(() => {
         localStorage.removeItem('bemilew-token');
         localStorage.removeItem('bemilew-user');
+        sessionStorage.removeItem('bemilew-token');
+        sessionStorage.removeItem('bemilew-user');
         setUser(null);
       })
       .finally(() => setLoading(false));
@@ -65,51 +120,84 @@ function App() {
 }
 
 function LoginPage({ onLogin }) {
-  const [form, setForm] = useState({ email: 'admin@bemilew.edu', password: 'ChangeThisPassword123!' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError('');
+    setMessage('');
+    setSubmitting(true);
 
     try {
-      const { data } = await api.post('/auth/login', form);
-      localStorage.setItem('bemilew-token', data.token);
-      localStorage.setItem('bemilew-user', JSON.stringify(data.user));
+      const { data } = await api.post('/auth/login', { email: form.email.toLowerCase(), password: form.password });
+      const storage = remember ? localStorage : sessionStorage;
+      const otherStorage = remember ? sessionStorage : localStorage;
+      storage.setItem('bemilew-token', data.token);
+      storage.setItem('bemilew-user', JSON.stringify(data.user));
+      otherStorage.removeItem('bemilew-token');
+      otherStorage.removeItem('bemilew-user');
       onLogin(data.user);
-      navigate('/dashboard');
+      navigate(roleHome[getRole(data.user.role)] || '/', { replace: true, state: { success: 'Signed in successfully.' } });
     } catch (err) {
       setError(err.response?.data?.message || 'Unable to sign in.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <div className="app-shell">
-      <div className="login-panel">
-        <div className="page-header">
-          <div className="flex-row" style={{ marginBottom: 12 }}>
-            <School size={36} color="#2563eb" />
-            <div>
-              <h1>Bemilew SIS</h1>
-              <div className="muted">Student Information System</div>
-            </div>
-          </div>
+    <div className="login-shell">
+      <section className="login-brand-panel">
+        <div className="login-brand-mark"><School size={25} /><span>SSIMS</span></div>
+        <div className="login-brand-copy">
+          <div className="login-eyebrow">SCHOOL MANAGEMENT PLATFORM</div>
+          <h1>Secondary School Information Management System</h1>
+          <p>One secure place for learning, school operations, and community.</p>
         </div>
+        <div className="login-brand-footer">Secure access for your school community</div>
+      </section>
 
+      <section className="login-form-panel">
+        <div className="login-form-wrap">
+          <div className="login-mobile-brand"><School size={24} /><span>SSIMS</span></div>
+          <div className="login-form-heading">
+            <div className="login-eyebrow">WELCOME BACK</div>
+            <h2>Sign in to your account</h2>
+            <p>Use your school account to continue.</p>
+          </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Email</label>
-            <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="admin@bemilew.edu" />
+            <label htmlFor="login-email">Email address</label>
+            <input id="login-email" type="email" autoComplete="username" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="name@example.com" />
           </div>
           <div className="form-group">
-            <label>Password</label>
-            <input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} placeholder="password" />
+            <label htmlFor="login-password">Password</label>
+            <div className="password-field">
+              <input id="login-password" type={showPassword ? 'text' : 'password'} autoComplete="current-password" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} placeholder="Enter your password" />
+              <button className="password-toggle" type="button" onClick={() => setShowPassword((visible) => !visible)} aria-label={showPassword ? 'Hide password' : 'Show password'} title={showPassword ? 'Hide password' : 'Show password'}>
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
-          {error && <div className="notice" style={{ marginBottom: 16 }}>{error}</div>}
-          <button className="btn primary" style={{ width: '100%' }} type="submit">Sign In</button>
+          <div className="login-options">
+            <label className="remember-option"><input type="checkbox" checked={remember} onChange={(event) => setRemember(event.target.checked)} /> Remember me</label>
+            <button type="button" className="text-action" onClick={() => { setError(''); setMessage('Please contact your school administrator to reset your password.'); }}>Forgot password?</button>
+          </div>
+          {error && <div className="login-message error-message" role="alert">{error}</div>}
+          {message && <div className="login-message success-message" role="status">{message}</div>}
+          <button className="sign-in-button" type="submit" disabled={submitting}>
+            {submitting ? <><LoaderCircle size={18} className="spin" /> Signing in…</> : <>Sign in <ArrowRight size={18} /></>}
+          </button>
         </form>
-      </div>
+          <footer className="login-footer">Secondary School Information Management System</footer>
+        </div>
+      </section>
     </div>
   );
 }
@@ -121,16 +209,23 @@ function AuthenticatedApp({ user, onLogout }) {
   const handleLogout = () => {
     localStorage.removeItem('bemilew-token');
     localStorage.removeItem('bemilew-user');
+    sessionStorage.removeItem('bemilew-token');
+    sessionStorage.removeItem('bemilew-user');
     onLogout();
     navigate('/');
   };
 
+  const role = getRole(user.role);
+  const homePath = roleHome[role] || '/';
+  const navItems = roleNavigation[role] || [];
+
   return (
     <div className="app-shell">
       <header className="topbar">
-        <div className="brand">Bemilew Secondary School</div>
+        <Link className="brand" to={homePath}>SSIMS</Link>
         <div className="nav-actions">
-          <span className="badge" style={{ background: roleColor[user.role] || '#dbeafe', color: '#fff' }}>{user.role}</span>
+          <span className="profile-summary"><span className="profile-avatar">{user.name?.charAt(0)?.toUpperCase() || 'U'}</span><span><strong>{user.name}</strong><small>{roleTitles[role] || role}</small></span></span>
+          <Link className="notification-link" to="/announcements" aria-label="Notifications" title="Notifications"><Bell size={18} /></Link>
           <button className="btn secondary" onClick={handleLogout}><LogOut size={16} /> Logout</button>
         </div>
       </header>
@@ -138,6 +233,9 @@ function AuthenticatedApp({ user, onLogout }) {
       <div className="layout">
         <aside className="sidebar">
           <nav>
+            <Link to={homePath} className={`nav-btn ${location.pathname === homePath ? 'active' : ''}`}>
+              <span style={{ display: 'inline-flex', gap: 10, alignItems: 'center' }}><LayoutDashboard size={18} /> Dashboard</span>
+            </Link>
             {navItems.map(({ to, label, icon: Icon }) => (
               <Link key={to} to={to} className={`nav-btn ${location.pathname === to ? 'active' : ''}`}>
                 <span style={{ display: 'inline-flex', gap: 10, alignItems: 'center' }}>
@@ -150,23 +248,88 @@ function AuthenticatedApp({ user, onLogout }) {
 
         <main className="content">
           <Routes>
-            <Route path="/dashboard" element={<DashboardPage user={user} />} />
-            <Route path="/students" element={<StudentsPage user={user} />} />
-            <Route path="/parents" element={<ParentsPage user={user} />} />
-            <Route path="/teachers" element={<TeachersPage user={user} />} />
-            <Route path="/attendance" element={<AttendancePage user={user} />} />
-            <Route path="/timetable" element={<TimetablePage user={user} />} />
-            <Route path="/results" element={<ResultsPage user={user} />} />
-            <Route path="/report-cards" element={<ReportCardsPage user={user} />} />
-            <Route path="/academics" element={<AcademicsPage user={user} />} />
-            <Route path="/fees" element={<FeesPage user={user} />} />
+            <Route path="/dashboard" element={<Navigate to={homePath} replace />} />
+            <Route path="/admin/dashboard" element={<RoleRoute user={user} allowed={['admin']}><RoleDashboardPage user={user} /></RoleRoute>} />
+            <Route path="/parent/dashboard" element={<RoleRoute user={user} allowed={['parent']}><RoleDashboardPage user={user} /></RoleRoute>} />
+            <Route path="/teacher/dashboard" element={<RoleRoute user={user} allowed={['teacher']}><RoleDashboardPage user={user} /></RoleRoute>} />
+            <Route path="/record/dashboard" element={<RoleRoute user={user} allowed={['record']}><RoleDashboardPage user={user} /></RoleRoute>} />
+            <Route path="/system-admin/dashboard" element={<RoleRoute user={user} allowed={['system_admin']}><RoleDashboardPage user={user} /></RoleRoute>} />
+            <Route path="/student/dashboard" element={<RoleRoute user={user} allowed={['student']}><RoleDashboardPage user={user} /></RoleRoute>} />
+            <Route path="/director/dashboard" element={<RoleRoute user={user} allowed={['director']}><RoleDashboardPage user={user} /></RoleRoute>} />
+            <Route path="/students" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'record', 'teacher', 'director']}><StudentsPage user={user} /></RoleRoute>} />
+            <Route path="/student-portal" element={<RoleRoute user={user} allowed={['student']}><StudentPortalPage user={user} /></RoleRoute>} />
+            <Route path="/parents" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'record', 'parent']}><ParentsPage user={user} /></RoleRoute>} />
+            <Route path="/teachers" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'record', 'teacher', 'director']}><TeachersPage user={user} /></RoleRoute>} />
+            <Route path="/attendance" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'record', 'teacher', 'director', 'parent']}><AttendancePage user={user} /></RoleRoute>} />
+            <Route path="/timetable" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'teacher', 'student', 'parent']}><TimetablePage user={user} /></RoleRoute>} />
+            <Route path="/results" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'teacher', 'student', 'parent', 'director']}><ResultsPage user={user} /></RoleRoute>} />
+            <Route path="/report-cards" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'record', 'teacher', 'student', 'parent', 'director']}><ReportCardsPage user={user} /></RoleRoute>} />
+            <Route path="/audit-logs" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'director']}><AuditLogsPage user={user} /></RoleRoute>} />
+            <Route path="/academics" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'record', 'teacher', 'director']}><AcademicsPage user={user} /></RoleRoute>} />
+            <Route path="/fees" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'record', 'parent', 'director']}><FeesPage user={user} /></RoleRoute>} />
             <Route path="/announcements" element={<AnnouncementsPage user={user} />} />
-            <Route path="/settings" element={<SettingsPage user={user} />} />
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/settings" element={<RoleRoute user={user} allowed={['admin', 'system_admin', 'director']}><SettingsPage user={user} /></RoleRoute>} />
+            <Route path="*" element={<Navigate to={homePath} replace />} />
           </Routes>
         </main>
       </div>
+      <footer className="app-footer">Secondary School Information Management System</footer>
     </div>
+  );
+}
+
+function RoleRoute({ user, allowed, children }) {
+  const role = getRole(user.role);
+  return allowed.includes(role) ? children : <Navigate to={roleHome[role] || '/'} replace />;
+}
+
+function RoleDashboardPage({ user }) {
+  const [summary, setSummary] = useState(null);
+  const [health, setHealth] = useState(null);
+  const location = useLocation();
+  const role = getRole(user.role);
+  const modules = roleNavigation[role] || [];
+
+  useEffect(() => {
+    api.get('/dashboard/summary').then(({ data }) => setSummary(data)).catch(() => setSummary(null));
+    if (role === 'system_admin') {
+      api.get('/health').then(({ data }) => setHealth(data)).catch(() => setHealth({ ok: false, database: { connected: false, mode: 'unavailable' } }));
+    }
+  }, []);
+
+  const totals = summary?.totals || {};
+  const roleStats = summary?.roleStats || {};
+  const stats = role === 'student'
+    ? [{ label: 'My subjects', value: roleStats.subjects || 0 }, { label: 'Attendance', value: roleStats.attendanceRate || '—' }, { label: 'My results', value: roleStats.results || 0 }]
+    : role === 'parent'
+      ? [{ label: 'Linked children', value: roleStats.linkedStudents || 0 }, { label: 'Attendance', value: roleStats.attendanceRate || '—' }, { label: 'Academic results', value: roleStats.results || 0 }]
+      : role === 'director'
+        ? [{ label: 'Total students', value: totals.students || 0 }, { label: 'Total teachers', value: totals.teachers || 0 }, { label: 'Average score', value: `${roleStats.averageScore || 0}%` }, { label: 'Attendance', value: roleStats.attendanceRate || '—' }, { label: 'Financial records', value: roleStats.financialTotal || 0 }, { label: 'Announcements', value: totals.announcements || 0 }]
+        : role === 'system_admin'
+          ? [{ label: 'API health', value: health?.ok ? 'Operational' : 'Checking' }, { label: 'Database', value: health?.database?.mode || 'Checking' }, { label: 'Registered users', value: totals.users || 0 }]
+      : [{ label: 'Active students', value: totals.activeStudents || 0 }, { label: 'Teachers', value: totals.teachers || 0 }, { label: 'Announcements', value: totals.announcements || 0 }];
+
+  return (
+    <>
+      {location.state?.success && <div className="login-message success-message" role="status">{location.state.success}</div>}
+      <div className="page-header dashboard-heading">
+        <div><div className="login-eyebrow">SSIMS / {roleTitles[role]?.toUpperCase()}</div><h1>{roleTitles[role]} Dashboard</h1><p className="muted">Welcome back, {user.name}.</p></div>
+        <div className="dashboard-profile"><span className="profile-avatar large">{user.name?.charAt(0)?.toUpperCase() || 'U'}</span><span><strong>{user.name}</strong><small>{user.email}</small></span></div>
+      </div>
+
+      <div className="grid grid-3">
+        {stats.map((stat) => <StatCard key={stat.label} label={stat.label} value={stat.value} />)}
+      </div>
+
+      <div className="section-head dashboard-section-head"><h2>Quick access</h2><Link to="/announcements" className="text-action"><Bell size={16} /> Notifications</Link></div>
+      <div className="grid grid-3 role-module-grid">
+        {modules.map(({ to, label, icon: Icon }) => (
+          <Link className="role-module" key={to} to={to}>
+            <span className="module-icon"><Icon size={20} /></span><span>{label}</span><ArrowRight size={17} className="module-arrow" />
+          </Link>
+        ))}
+      </div>
+    </>
   );
 }
 
@@ -355,12 +518,19 @@ function StudentsPage({ user }) {
 function ParentsPage({ user }) {
   const [parents, setParents] = useState([]);
   const [children, setChildren] = useState([]);
+  const [parentPortal, setParentPortal] = useState(null);
 
   useEffect(() => {
     if (user.role === 'parent') {
       api.get('/parents/me')
-        .then(({ data }) => setChildren(data.parent?.children || []))
-        .catch(() => setChildren([]));
+        .then(({ data }) => {
+          setParentPortal(data);
+          setChildren(data.parent?.children || []);
+        })
+        .catch(() => {
+          setParentPortal({ attendance: [], results: [], fees: [], timetable: [], announcements: [] });
+          setChildren([]);
+        });
       return;
     }
 
@@ -400,6 +570,41 @@ function ParentsPage({ user }) {
               )) : <tr><td colSpan="5" className="empty">No student records linked to this parent account.</td></tr>}
             </tbody>
           </table>
+        </div>
+
+        <div className="grid grid-2" style={{ marginTop: 20 }}>
+          <div className="card">
+            <h3>Attendance</h3>
+            <table className="table">
+              <thead><tr><th>Date</th><th>Class</th><th>Status</th></tr></thead>
+              <tbody>{parentPortal?.attendance?.length ? parentPortal.attendance.map((entry) => <tr key={entry.id}><td>{entry.date}</td><td>{entry.className}</td><td>{entry.status}</td></tr>) : <tr><td colSpan="3" className="empty">No attendance records yet.</td></tr>}</tbody>
+            </table>
+          </div>
+          <div className="card">
+            <h3>Academic Results</h3>
+            <table className="table">
+              <thead><tr><th>Subject</th><th>Exam</th><th>Score</th></tr></thead>
+              <tbody>{parentPortal?.results?.length ? parentPortal.results.map((entry) => <tr key={entry.id}><td>{entry.subject}</td><td>{entry.exam}</td><td>{entry.score}/{entry.maxScore}</td></tr>) : <tr><td colSpan="3" className="empty">No results yet.</td></tr>}</tbody>
+            </table>
+          </div>
+          <div className="card">
+            <h3>Payments</h3>
+            <table className="table">
+              <thead><tr><th>Category</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>{parentPortal?.fees?.length ? parentPortal.fees.map((entry) => <tr key={entry.id}><td>{entry.category}</td><td>{entry.amount}</td><td>{entry.status}</td></tr>) : <tr><td colSpan="3" className="empty">No payment records yet.</td></tr>}</tbody>
+            </table>
+          </div>
+          <div className="card">
+            <h3>Class Schedule</h3>
+            <table className="table">
+              <thead><tr><th>Day</th><th>Time</th><th>Subject</th></tr></thead>
+              <tbody>{parentPortal?.timetable?.length ? parentPortal.timetable.map((entry) => <tr key={entry.id}><td>{entry.day}</td><td>{entry.time}</td><td>{entry.subject}</td></tr>) : <tr><td colSpan="3" className="empty">No schedule available.</td></tr>}</tbody>
+            </table>
+          </div>
+        </div>
+        <div className="card" style={{ marginTop: 20 }}>
+          <h3>School Announcements</h3>
+          {parentPortal?.announcements?.length ? parentPortal.announcements.map((item) => <div className="notice" key={item.id} style={{ marginTop: 10 }}><strong>{item.title}</strong><div className="muted">{item.content}</div></div>) : <div className="empty">No announcements yet.</div>}
         </div>
       </>
     );
@@ -546,6 +751,128 @@ function ReportCardsPage({ user }) {
                 <td>{card.remark}</td>
               </tr>
             )) : <tr><td colSpan="5" className="empty">No report cards generated yet.</td></tr>}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}
+
+function StudentPortalPage({ user }) {
+  const [portal, setPortal] = useState(null);
+
+  useEffect(() => {
+    if (user.role !== 'student') {
+      setPortal({ student: null, attendance: [], results: [], fees: [] });
+      return;
+    }
+
+    api.get('/student-portal/me')
+      .then(({ data }) => setPortal(data))
+      .catch(() => setPortal({ student: null, attendance: [], results: [], fees: [] }));
+  }, [user.role]);
+
+  if (user.role !== 'student') {
+    return (
+      <>
+        <div className="page-header">
+          <h1>Student Portal</h1>
+        </div>
+        <div className="card">This portal is available to student accounts only.</div>
+      </>
+    );
+  }
+
+  if (!portal) return <div className="card">Loading student portal…</div>;
+
+  return (
+    <>
+      <div className="page-header">
+        <h1>Student Portal</h1>
+        <div className="muted">Welcome, {user.name}</div>
+      </div>
+
+      <div className="grid grid-3">
+        <StatCard label="Student ID" value={portal.student?.studentId || user.studentId || 'N/A'} />
+        <StatCard label="Grade" value={portal.student?.grade || 'N/A'} />
+        <StatCard label="Section" value={portal.student?.section || 'N/A'} />
+      </div>
+
+      <div className="grid grid-2" style={{ marginTop: 24 }}>
+        <div className="card">
+          <h3>Attendance</h3>
+          <table className="table">
+            <thead><tr><th>Date</th><th>Class</th><th>Status</th></tr></thead>
+            <tbody>
+              {portal.attendance?.length ? portal.attendance.map((entry) => (
+                <tr key={entry.id}><td>{entry.date}</td><td>{entry.className}</td><td><span className="badge">{entry.status}</span></td></tr>
+              )) : <tr><td colSpan="3" className="empty">No attendance records yet.</td></tr>}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="card">
+          <h3>Results</h3>
+          <table className="table">
+            <thead><tr><th>Subject</th><th>Exam</th><th>Score</th><th>Grade</th></tr></thead>
+            <tbody>
+              {portal.results?.length ? portal.results.map((entry) => (
+                <tr key={entry.id}><td>{entry.subject}</td><td>{entry.exam}</td><td>{entry.score}/{entry.maxScore}</td><td><span className="badge">{entry.grade}</span></td></tr>
+              )) : <tr><td colSpan="4" className="empty">No exam results yet.</td></tr>}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="card" style={{ marginTop: 24 }}>
+        <h3>Fee Status</h3>
+        <table className="table">
+          <thead><tr><th>Category</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody>
+            {portal.fees?.length ? portal.fees.map((entry) => (
+              <tr key={entry.id}><td>{entry.category}</td><td>{entry.amount}</td><td><span className="badge">{entry.status}</span></td></tr>
+            )) : <tr><td colSpan="3" className="empty">No fee records yet.</td></tr>}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}
+
+function AuditLogsPage({ user }) {
+  const [logs, setLogs] = useState([]);
+
+  useEffect(() => {
+    api.get('/audit')
+      .then(({ data }) => setLogs(data || []))
+      .catch(() => setLogs([]));
+  }, []);
+
+  return (
+    <>
+      <div className="page-header">
+        <h1>Audit Logs</h1>
+      </div>
+
+      <div className="card">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Actor</th>
+              <th>Action</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            {logs.length ? logs.map((log) => (
+              <tr key={log.id}>
+                <td>{new Date(log.timestamp).toLocaleString()}</td>
+                <td>{log.actor}</td>
+                <td>{log.action}</td>
+                <td>{JSON.stringify(log.details)}</td>
+              </tr>
+            )) : <tr><td colSpan="4" className="empty">No audit entries yet.</td></tr>}
           </tbody>
         </table>
       </div>
@@ -972,7 +1299,7 @@ function SettingsPage({ user }) {
   const [settings, setSettings] = useState({ schoolName: '', motto: '', academicYear: '', semester: '', gradingScale: '' });
 
   const loadSettings = () => {
-    api.get('/school/settings').then(({ data }) => setSettings(data)).catch(() => setSettings({ schoolName: 'Bemilew Secondary School', motto: 'Excellence through knowledge', academicYear: '2025/2026', semester: 'Semester I', gradingScale: 'A=90-100, B=80-89, C=70-79, D=60-69, F=0-59' }));
+    api.get('/school/settings').then(({ data }) => setSettings(data)).catch(() => setSettings({ schoolName: 'Secondary School Information Management System', motto: 'Excellence through knowledge', academicYear: '2025/2026', semester: 'Semester I', gradingScale: 'A=90-100, B=80-89, C=70-79, D=60-69, F=0-59' }));
   };
 
   useEffect(() => {

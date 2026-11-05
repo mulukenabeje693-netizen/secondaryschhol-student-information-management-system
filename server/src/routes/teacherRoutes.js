@@ -1,7 +1,7 @@
 import express from 'express';
 import crypto from 'crypto';
 import { authenticate, authorize } from '../middleware/auth.js';
-import { getTeachers, saveTeachers } from '../store.js';
+import { getTeachers, saveTeachers, logAuditEvent } from '../store.js';
 
 const router = express.Router();
 
@@ -33,6 +33,7 @@ router.post('/', authenticate, authorize('super_admin', 'registrar'), (req, res)
 
   teachers.push(newTeacher);
   saveTeachers(teachers);
+  logAuditEvent('teacher.created', req.user?.email || 'system', { teacherId: newTeacher.teacherId, fullName: newTeacher.fullName });
   res.status(201).json(newTeacher);
 });
 

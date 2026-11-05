@@ -18,7 +18,7 @@ const makeDefaultAnnouncements = () => [
   {
     id: crypto.randomUUID(),
     title: 'Academic Year Kickoff',
-    content: 'Welcome back to Bemilew Secondary School. Please review the timetable and class assignments.',
+    content: 'Welcome back to Secondary School Information Management System. Please review the timetable and class assignments.',
     audience: 'all',
     createdBy: defaultAdmin.email,
     publishedAt: new Date().toISOString()
@@ -175,8 +175,20 @@ const makeDefaultParents = () => [
   }
 ];
 
+const makeDefaultStudentUser = () => ({
+  id: crypto.randomUUID(),
+  studentId: 'BS-2025-001',
+  name: 'Abebe Bekele',
+  email: 'student.abebe@bemilew.edu',
+  passwordHash: bcrypt.hashSync('Student123!', 10),
+  role: 'student',
+  status: 'active',
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString()
+});
+
 const makeDefaultSchoolSettings = () => ({
-  schoolName: 'Bemilew Secondary School',
+  schoolName: 'Secondary School Information Management System',
   motto: 'Excellence through knowledge',
   academicYear: '2025/2026',
   semester: 'Semester I',
@@ -199,6 +211,7 @@ const ensureSeedData = () => {
   const students = readJsonFile('students.json', []);
   const announcements = readJsonFile('announcements.json', makeDefaultAnnouncements());
   const parents = readJsonFile('parents.json', makeDefaultParents());
+  const auditLogs = readJsonFile('audit-logs.json', []);
   const teachers = readJsonFile('teachers.json', makeDefaultTeachers());
   const attendanceRecords = readJsonFile('attendance.json', makeDefaultAttendance());
   const fees = readJsonFile('fees.json', makeDefaultFees());
@@ -220,6 +233,11 @@ const ensureSeedData = () => {
       users.push(defaultParent);
       writeJsonFile('users.json', users);
     }
+  }
+
+  if (!users.some((user) => user.role === 'student')) {
+    users.push(makeDefaultStudentUser());
+    writeJsonFile('users.json', users);
   }
 
   if (!students.length) {
@@ -254,6 +272,16 @@ const ensureSeedData = () => {
     writeJsonFile('report-cards.json', makeDefaultReportCards());
   }
 
+  if (!auditLogs.length) {
+    writeJsonFile('audit-logs.json', [{
+      id: crypto.randomUUID(),
+      action: 'system.seeded',
+      actor: 'system',
+      details: 'Initial school data created.',
+      timestamp: new Date().toISOString()
+    }]);
+  }
+
   if (!Object.keys(schoolSettings).length) {
     writeJsonFile('school-settings.json', makeDefaultSchoolSettings());
   }
@@ -269,10 +297,24 @@ const ensureSeedData = () => {
 
 ensureSeedData();
 
-export const getUsers = () => readJsonFile('users.json', [defaultAdmin, ...makeDefaultParents()]);
+export const getUsers = () => readJsonFile('users.json', [defaultAdmin, ...makeDefaultParents(), makeDefaultStudentUser()]);
 export const saveUsers = (users) => writeJsonFile('users.json', users);
 export const getParents = () => readJsonFile('parents.json', makeDefaultParents());
 export const saveParents = (parents) => writeJsonFile('parents.json', parents);
+export const getAuditLogs = () => readJsonFile('audit-logs.json', []);
+export const saveAuditLogs = (logs) => writeJsonFile('audit-logs.json', logs);
+export const logAuditEvent = (action, actor, details = {}) => {
+  const logs = getAuditLogs();
+  logs.unshift({
+    id: crypto.randomUUID(),
+    action,
+    actor: actor || 'system',
+    details,
+    timestamp: new Date().toISOString()
+  });
+  saveAuditLogs(logs.slice(0, 200));
+  return logs[0];
+};
 export const getStudents = () => readJsonFile('students.json', makeDefaultStudents());
 export const saveStudents = (students) => writeJsonFile('students.json', students);
 export const getAnnouncements = () => readJsonFile('announcements.json', makeDefaultAnnouncements());
