@@ -1,5 +1,15 @@
 [
   {
+    "id": "f2486b6e-69ce-4ebb-85ea-7a9290aaf45e",
+    "action": "auth.login",
+    "actor": "sysadmin25@gmail.com",
+    "details": {
+      "role": "system_admin",
+      "studentId": null
+    },
+    "timestamp": "2026-11-05T09:20:19.250Z"
+  },
+  {
     "id": "bd9d3481-708e-42f8-844b-fe6d2272584b",
     "action": "auth.login",
     "actor": "directer27@gmail.com",
